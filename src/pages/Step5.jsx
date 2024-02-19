@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import StepLayout from '../layout/StepLayout'
 import EmptyTextarea from '../components/EmptyTextarea'
 import { Autocomplete, FormControl, TextField } from '@mui/material'
-import InputField from '../components/InputField'
+import InputField from '../InputField'
 import { DatePicker } from '@mui/x-date-pickers'
 
 export const Step5 = () => {
@@ -26,14 +26,13 @@ export const Step5 = () => {
 
   console.log('hello')
   return (
-    <StepLayout>
-      <FormControl fullWidth >
+    
       <div className='grid grid-cols-2 gap-4 p-4'>
         <Autocomplete 
         disablePortal
         id="combo-box-demo"
         options={paymentTerms}
-        sx={{  backgroundColor: '#F8FAFC'}}
+        
         renderInput={(params) => <TextField {...params} label="Payment terms" />}
 
         />
@@ -41,31 +40,26 @@ export const Step5 = () => {
         disablePortal
         id="combo-box-demo"
         options={paymentMethods}
-        sx={{ backgroundColor: '#F8FAFC' }}
         renderInput={(params) => <TextField {...params} label="Payment methods" />}
 
         />
         
-        <DatePicker  label='Add value date' sx={{  backgroundColor: '#F8FAFC'}}/>
-        <DatePicker label='Fixed value date' sx={{  backgroundColor: '#F8FAFC'}}/>
+        <DatePicker  label='Add value date' />
+        <DatePicker label='Fixed value date' />
 
        
        
-       <TextField
-          id="outlined-multiline-static"
-          size="small"
-          className="bg-[#F8FAFC] border border-slate-50"
-          label='Customer add info'
+        <InputField
+          id="custumerInfo"
+          name="custumerInfo"
+          sx={{ marginBottom: '12px' }}
+          label='Customer add info' />
 
-        />
-
-        <TextField
-          id="outlined-multiline-static"
-          size="small"
-          className="bg-[#F8FAFC] border border-slate-50"
-          label='Company add info'
-
-        />
+        <InputField
+          id="companyInfo"
+          name="companyInfo"
+          sx={{ marginBottom: '12px' }}
+          label='Company add info' />
         
         
         
@@ -76,49 +70,6 @@ export const Step5 = () => {
 
 
       </div>
-      </FormControl>
-      {/* <form action="">
-      <div className='grid grid-cols-2 gap-4 p-4'>
-        <label htmlFor="" className='mr-2'>
-          Payment Terms:
-         <input type="text" className='ml-2' />
-        </label>
-        <label htmlFor="">
-          Payment Methods:
-         <input type="text" />
-        </label>
-        <label htmlFor="">
-          Add value days:
-         <input type="date" />
-        </label>
-        <label htmlFor="">
-          Fixed value date:
-         <input placeholder='Enter Date' type='date'/>
-        </label> */}
-        {/* information component */}
-        {/* <label htmlFor="">
-          Form Header: 
-          <EmptyTextarea/>
-        </label>
-        <label htmlFor="">
-        Company Add1 info:
-         <input type="text" />
-        </label>
-            
-        <label htmlFor="">
-          Aditional Note 1:
-          <EmptyTextarea/>
-        </label>
-        <label htmlFor="">
-          Customer Add'l Info
-         <input type="text" />
-        </label>
-
-       </div> */}
-      {/* </form> */}
-     
-      
-    </StepLayout>
   )
 }
 

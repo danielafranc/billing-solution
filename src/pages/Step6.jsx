@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import StepLayout from '../layout/StepLayout';
 import DropDownComponent from '../components/SelectTextFields'
 import SelectTextFields from '../components/SelectTextFields'
-import InputField from '../components/InputField';
+import InputField from '../InputField';
 import useStore from '../store/store';
 import { useFormik } from 'formik';
 import { Autocomplete, Box, FormControl, TextField } from '@mui/material';
@@ -44,10 +44,23 @@ const Step6 = () => {
     const [inputValue, setInputValue] = useState('');
 
   return (
-    <StepLayout>
-     <FormControl fullWidth>
+   
      <div className='grid grid-cols-2 gap-4 p-4'>
 
+        <InputField name='Ship to Party:' label='Ship to Party:'/>
+        <InputField name='addressNumber' label='Ship to Party: Address Number'/>
+        <InputField name='location' label='Ship to Party: Country/Location'/>
+        <InputField name='contactPerson' label='Bill to Party: Department/Contact Person'/>
+        <InputField name='clientName' label='Bill to Party: Client name'/>
+        <InputField name='billToPartyClientName' label='Bill to Party: Client name'/>
+        <InputField name='billToPartyClientName' label='Bill to Party: Client name'/>
+        <InputField name='streetAddress' label='Ship to Party: Street Address'/>
+        <InputField name='postalCode' label='Ship to Party: Postal Code(ZIP)'/>
+        <InputField name='billToPartyStreetAddress' label='Bill to party: Street Address'/>
+        <InputField name='city' label='Bill to Party: City'/>
+        <InputField name='billToPartyPostalCode' label='Bill to Party: Postal Code (ZIP)'/>
+        <InputField name='billToPartyLocation' label='Bill to Party: Country/Location'/>
+{/* 
           <TextField
           id="outlined-multiline-static"
           size="small"
@@ -201,21 +214,7 @@ const Step6 = () => {
 
         />
 
-        {/* <Autocomplete
-        value={value}
-        onChange={(event, newValue) => {
-          setValue(newValue);
-        }}
-        sx={{  backgroundColor: '#F8FAFC'}}
-        inputValue={inputValue}
-        onInputChange={(event, newInputValue) => {
-          setInputValue(newInputValue);
-        }}
-        id="controllable-states-demo"
-        options={options}
-        
-        renderInput={(params) => <TextField    {...params}  label='Should billing team deliver invoice?' sx={{  backgroundColor: '#F8FAFC'}} />}
-      /> */}
+     
        <Autocomplete
       value={value}
       onChange={(event, newValue) => {
@@ -231,85 +230,18 @@ const Step6 = () => {
       
       renderInput={(params) => <TextField    {...params}  label='Should billing team deliver invoice?' sx={{  backgroundColor: '#F8FAFC'}} />}
     />
-        
+         */}
 
       </div>
-     </FormControl>
-{/* 
-        <InputField name='Ship to Party:  ' />
-        <InputField name='Ship to Party: Address Number'/>
-        <InputField name='Ship to Party: Country/Location'/>
-        <InputField name='Bill to Party: Department/Contact Person'/>
-        <InputField name='Bill to Party: Client name'/>
-        <InputField name='Bill to Party: Client name'/>
-        <InputField name='Bill to Party: Client name'/>
-        <InputField name='Ship to Party: Street Address'/>
-        <InputField name='Ship to Party: Postal Code(ZIP)'/>
-        <InputField name='Bill to party: Street Address'/>
-        <InputField name='Bill to Party: City'/>
-        <InputField name='Bill to Party: Postal Code (ZIP)'/>
-        <InputField name='Bill to Party: Country/Location'/>
-         */}
+      )
+    }
+    
+
+        
+         
        
         
-        {/* <label htmlFor="">
-        Ship to Party: Address Number
-          <input type="text" />
-        </label>
-        <label htmlFor="">
-        Ship to Party: Country/Location
-          <input type="text" />
-        </label>
-        <label htmlFor="">
-        Bill to Party: Department/Contact Person
-          <input type="text" />
-        </label>
-        <label htmlFor="">
-        Bill to Party: Client name
-          <input type="text" />
-        </label>
-        <label htmlFor="">
-        Bill to Party: Client name
-          <input type="text" />
-        </label>
-        <label htmlFor="">
-        Bill to Party: Client name
-          <input type="text" />
-        </label>
-        <label htmlFor="">
-        Bill to Party: Client name
-          <input type="text" />
-        </label>
-        <label htmlFor="">
-          Ship to Party: Street Address
-          <input type="text" />
-        </label>
-        <label htmlFor="">
-          Ship to Party: Postal Code(ZIP)
-          <input type="text" />
-        </label>
-        <label htmlFor="">
-          Bill to party: Street Address
-          <input type="text" />
-        </label>
-        <label htmlFor="">
-          Bill to Party: City
-          <input type="text" />
-        </label>
-        <label htmlFor="">
-          Bill to Party: Postal Code (ZIP)
-          <input type="text" />
-        </label>
-        <label htmlFor="">
-          Bill to Party: Country/Location
-          <input type="text" />
-        </label>
-        <SelectTextFields/>*/}
-      {/* </div> 
-    </form> */}
-    </StepLayout>
+      
     
-  )
-}
-
+  
 export default Step6

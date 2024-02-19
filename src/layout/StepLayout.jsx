@@ -1,70 +1,100 @@
-import React, { useEffect } from 'react'
+import React, {useState} from 'react';
+import { Form, Formik } from 'formik';
+import FormNavigation from '../FormNavigation';
 import useStore from '../store/store';
-import { Button } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
-import Stack from '@mui/material/Stack';
-import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-const StepLayout = ({children}) => {
+import { Step, StepLabel, Stepper } from '@mui/material';
+
+// export const calculateSteps = (children) => {
+//   // Ensure children is iterable
+//   if (!React.Children.count(children)) return [];
+  
+//   return React.Children.toArray(children);
+// };
+const StepLayout = ({children, initialValues, onSubmit, validationSchema, ...props}) => {
+
   const { activeStep, setActiveStep, handleBack } = useStore();
 
-  const navigate = useNavigate();
+    const [stepNumber, setstepNumber] = useState(activeStep);
+    const [snapshot, setSnapshot] = useState(initialValues);
+    const steps = React.Children.toArray(children);
 
-//  const handleNext = () => {
-//   setActiveStep();
-//  if(activeStep <= 1 ){
-//   navigate('/');
-//  }
-//  else{
+    const currentChild = steps[stepNumber];
+    const totalSteps = steps.length;
+    const isLastStep = stepNumber === totalSteps - 1;
 
-//   navigate(`/step${activeStep}`);
-//  }
-  
-//  console.log(activeStep, ` kkkkk`)
-//   // navigate(`/step`);
-//  }
+    const nexStep = (values) => {
+    setSnapshot(values);
+    setstepNumber(stepNumber + 1)
+    console.log(values)
 
-const handleNext = () => {
-  setActiveStep();
-  navigate(`/step${activeStep}`);
+    };
 
-}
+    const previousStep = (values) => {
+        setSnapshot(values);
+        setstepNumber(stepNumber - 1)
+        console.log(values)
 
- const goBack = () => {
-    handleBack(); 
-    let stepBack =  activeStep - 1;
-    navigate(`/step${stepBack}`)
-   
-  
- }
+    };
+    console.log(stepNumber)
 
 
-//  useEffect(() => {
-//   navigate(`/step + 1`);
-//  }, [activeStep])
+    const handleSubmit = async (values, actions) => {
+        if (currentChild.props.onSubmit){
+        // if (isLastcurrentChild()){
+            await currentChild.props.onSubmit(values);
+        };
+        if(isLastStep){
+            return onSubmit(values, actions);
+        } else {
+            actions.setTouched({});
+            nexStep(values)
+            console.log(values)
+        }
+    };
+
 
   return (
-    <div className=" border mt-9 w-[95%] m-auto h-auto rounded-lg bg-white">
-        <h1 className='border-b border-stroke bg-[#F8F8F8] font-medium tex-sm py-2 pl-3 rounded-t-lg'>Step {activeStep - 1}</h1>
-        <div className='p-5'>
-        {children}
-        </div>
-        <Stack direction="row" spacing={2} className='justify-between m-4'>
+    <>
+    <div className='mt-3 w-[95%] m-auto  shadow-lg h-16 rounded-xl  p-4  bg-white'>
+    <Stepper activeStep={stepNumber} >
+      {steps.map((currentStep) => {
+      const label = currentStep.props.stepName;
 
-        <Button 
-        disabled={activeStep === 1 || activeStep === 6}
-        variant="contained"
-        startIcon={<KeyboardArrowLeftIcon />}
-        onClick={goBack}>Back
-        </Button>
+      return (
+      <Step key={label} >
+      <StepLabel>{label}</StepLabel>
+      </Step>
+      );
+      })}
+</Stepper>
+
+ </div>
+    <div className=" border border-slate-100 shadow-md mt-3 w-[95%] m-auto h-auto rounded-lg bg-white">
+        <h1 className='border-b border-stroke bg-primary font-medium py-2 pl-3 rounded-t-lg font-inherit text-white'>Step {stepNumber + 1}</h1>
+        <div className='p-5'>
         
-        <Button 
-        variant="contained"
-        endIcon={<KeyboardArrowRightIcon />}
-        onClick={handleNext}>Next</Button>
-        </Stack>
+        <Formik 
+        {...props}
+        initialValues={snapshot} 
+        onSubmit={handleSubmit}
+        validationSchema={currentChild.props.validationSchema}
+        >   
+         {(formik) => (
+        <Form>
+            {currentChild} 
+            <FormNavigation
+            isLastStep={isLastStep}  
+            hasPrevious={stepNumber > 0}
+            onBackClick={() => previousStep(formik.values)} 
+             />
+        </Form>  )} 
+        </Formik>
         </div>
+        </div>
+    </>
+    
   )
 }
 
-export default StepLayout
+export default StepLayout;
+export const FormStep = ({children}) => children;

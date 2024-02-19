@@ -5,7 +5,7 @@ export default {
       {
         mytheme: {
         
-        "primary": "#427cac",
+        "primary": "#1e88e5"        ,
                 
         "secondary": "#91C8F6",
                 
@@ -24,6 +24,7 @@ export default {
         "warning": "#ffffff",
                 
         "error": "#C14646",
+
                 },
       },
     ],

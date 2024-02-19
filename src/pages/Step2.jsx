@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import StepLayout from '../layout/StepLayout'
-import InputField from '../components/InputField';
+import InputField from '../InputField';
 import { DatePicker } from '@mui/x-date-pickers';
 import {  DemoItem } from '@mui/x-date-pickers/internals/demo';
 import { NumberInput } from '@mui/base/Unstable_NumberInput/NumberInput';
 import { FormControl, InputAdornment, InputLabel, MenuItem, OutlinedInput, TextField } from '@mui/material';
 import { Label } from '@mui/icons-material';
 
-const Step2 = () => {
+const Step2 = ({validationSchema}) => {
     const [value, setValue] = useState(null);
 
     const languages = [
@@ -33,7 +33,7 @@ const Step2 = () => {
         },
       ];
 
-      const currencies = [
+   const currencies = [
         {
           value: 'USD',
           label: '$',
@@ -54,13 +54,11 @@ const Step2 = () => {
       
 
   return (
-     <StepLayout>
         
-        <FormControl fullWidth sx={{ m: 1 }}>
         <div className='grid grid-cols-2  gap-4 p-3'>
         
         <TextField
-          id="outlined-select-currency"
+          id="currency"
           select
           label="Invoice currency"
           defaultValue="EUR"
@@ -73,25 +71,30 @@ const Step2 = () => {
             </MenuItem>
           ))}
         </TextField>
-        
-        <TextField id="outlined-basic" label="PO:" variant="outlined" />
-      
+       
+      <InputField
+       id="PO"
+       name="PO"
+       sx={{ marginBottom: '12px' }}
+       label="PO:"
+      />
 
-        <DemoItem label="Invoice Date:">
-        <DatePicker sx={{  backgroundColor: '#F8FAFC'}} />
+        <DemoItem label="Invoice Date:" id='invoiceDate'>
+        <DatePicker  />
         </DemoItem>
 
-        <DemoItem label="Service Rendered Date:" sx={{marginBottom: '8px',  fontWeight: '600', fontSize: '1.25rem'  }}>
-        <DatePicker  sx={{ backgroundColor: '#F8FAFC' }} />
+        <DemoItem label="Service Rendered Date:" id='renderedDate'>
+        <DatePicker  />
         </DemoItem>
 
-          <OutlinedInput
-            id="outlined-adornment-amount"
-            startAdornment={<InputAdornment position="start">$</InputAdornment>}
+          <InputField
+            id="amount"
+            name="amount"
+            // startAdornment={<InputAdornment position="start">$</InputAdornment>}
             label="Amount"
           />        
         <TextField
-          id="outlined-select-language"
+          id="language"
           select
           label="Language"
         //   helperText="Please select your currency"
@@ -106,10 +109,8 @@ const Step2 = () => {
        
 
         </div>
-            </FormControl>
-            
-    </StepLayout>
+       
   )
 }
 
-export default Step2
+export default Step2;

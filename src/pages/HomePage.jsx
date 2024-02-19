@@ -1,47 +1,70 @@
-import React from 'react'
-import StepLayout from '../layout/StepLayout'
-// import NavBar from '../components/NavBar'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Form, Formik, useFormik } from 'formik';
+import * as Yup from 'yup';
+import StepLayout from '../layout/StepLayout';
+import { Button, FormControl, FormLabel, InputLabel, TextField } from '@mui/material'
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
+import { DateField } from '@mui/x-date-pickers'
+import useForm from '../hooks/useForm';
+import InputField from '../InputField';
+
+const validationSchema = Yup.object({
+      
+    contractNumber: Yup.number().min(10).required('Required'),
+    contractName: Yup.string().required('Required'),
+    dateField: Yup.date().max(new Date()),
+    clientNumber: Yup.string().required('Please enter a client number'),
+    salesOrg: Yup.string().required('Please enter the sales org')
+    
+    // ... other validation rules for email, acceptedTerms, and jobType
+  });
+  
 
 const HomePage = () => {
-  return (
-    <StepLayout>
-        <form action="">
-            <h1>HOME PAGE</h1>
-        <div className='grid grid-cols-2  gap-2 p-3'>
-        <label for="currency">
-            <span>Invoice currency:</span>
-            <input id="currency" type="number" name="currency" min="1" step="any" className='bg-[#F8FAFC] text-[#AEB3C3] p-2 box-border'placeholder='Invoice Currency' required/>
-        </label>
-        {/* PO# */}
-        <label for="PO">
-            <span>PO#:</span>
-            <input id="PO" type="text" name="PO"  />
-        </label>
-        {/* Invoice Date */}
-        <label for="invoice-date">
-            <span>Invoice Date:</span>
-            <input id="invoice-date" type="date" name="invoice-date" />
-        </label>
-        {/* Service Rendered Date */}
-        <label for="rendered-date">
-            <span>Service Rendered Date:</span>
-            <input id="rendered-date" type="date" name="rendered-date" />
-        </label>
-        {/* Display Quantity */}
-        <label for="display-quantity">
-            <span>Display Quantity:</span>
-            <input id="display-quantity" type="number" name="display-quantity"  min="1" step="any"/>
-        </label>
-        {/* Language */}
-        <label for="language">
-            <span>Language:</span>
-            <input id="language" type="text" name="language" />
-        </label>
-            </div>
-        </form>
-    </StepLayout>
+
+
+      return (
+    <>
+    <InputField 
+    id="contractNumber"
+    name="contractNumber"
+    sx={{ marginBottom: '12px' }}
+    label="Contract number"
+    />
+   
+   <InputField 
+    id="contractName"
+    name="contractName"
+    sx={{ marginBottom: '12px' }}
+    label="Contract name"
+    />
+     {/* <InputField 
+   id='endDate'
+   sx={{ marginBottom: '12px' }}
+   name='dateField'
+   label="Contract end date"
+    /> */}
+        <DateField
+          fullWidth
+          id='dateField'
+          sx={{ marginBottom: '12px' }}
+          name='dateField'
+          label="Contract end date"
+          // onChange={(date) => formik.setFieldValue('dateField', date)}
+        />
+     <InputField 
+     id="clientNumber"
+     name="clientNumber"
+     sx={{marginBottom: '12px'}} 
+     label="Client number" />
+    
+    </>
+   
     
   )
+  
+
 }
 
 export default HomePage
