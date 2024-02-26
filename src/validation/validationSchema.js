@@ -25,23 +25,14 @@ export const contractValidationSchema = Yup.object({
   ];
   
 
-  export const StepTwoValidation = Yup.object().shape({
-    // currency: Yup.string().required('Invoice currency is required').oneOf(
-    //     currencies.map(option => option.value),
-    //     'Invalid currency selected' ),  
+  export const stepTwoValidation = Yup.object().shape({
+  
   PO: Yup.string().required('PO is required'),
   invoiceDate: Yup.date().required('Required'),
   renderedDate: Yup.date().required('Required'),
   amount: Yup.number().required('Amount is required').min(0, 'Amount must be greater than or equal to 0'),
 
-  // language: Yup.string().required()
-    //  currency: Yup.string().oneOf(currencies.map(option => option.value))
-    //  .required('Currency amount is required'),
-    //  PO: Yup.string().required('PO is required'),
-    // InvoiceDate: Yup.date().max(new Date()),
-    //     renderedDate: Yup.date().max(new Date()),
-    // amount: Yup.number().required('The amount is required'),
-    // language: Yup.string().required('Language is required'),
+
 
   })
 

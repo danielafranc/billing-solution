@@ -45,7 +45,7 @@ const Step6 = () => {
 
   return (
    
-     <div className='grid grid-cols-2 gap-4'>
+     <div className='grid grid-cols-2 gap-4 mb-3'>
 
         <InputField name='Ship to Party:' label='Ship to Party:'/>
         <InputField name='addressNumber' label='Ship to Party: Address Number'/>
