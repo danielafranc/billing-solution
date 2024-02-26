@@ -1,8 +1,5 @@
 import React from 'react'
 import SAPLOGO from '../assets/SAPLOGO.png'
-import { Link } from 'react-router-dom';
-import HorizontalLinearStepper from '../components/Stepper';
-import { Divider } from '@mui/material';
 const NavBar = () => {
   return (
     <>
@@ -23,20 +20,7 @@ const NavBar = () => {
         </button>
         </div>
     </div>
-    {/* <div className='w-full shadow-sm bg-base-100 my-4 pb-3'> */}
-
-
-
-
-        {/* <ul className="steps w-full text-sm font-Jakarta items-center">
-        <Link to='/' className='step step-primary'>Step 1</Link>
-        <Link to='/step2' className='step step-primary'>Step 2</Link>
-        <Link to='/step3' className='step step-primary'>Step 3</Link>
-        <Link to='/step4' className='step'>Step 4</Link>
-        <Link to='/step5' className='step'>Step 5</Link>
-        <Link to='/step6' className='step'>Step 6</Link>
-        </ul> */}
-        {/* </div> */}
+  
  
    
   </>

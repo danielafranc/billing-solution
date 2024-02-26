@@ -8,38 +8,46 @@ import InputField from '../InputField';
  const Step4 = () => {
   return (
   
-        <div className='grid grid-cols-2  gap-4 p-3'>
-          <InputField
+        <div className='grid grid-cols-2  gap-4'>
+          <div>
+            <InputField
            id="totalFees"
            name="totalFees"
-           sx={{ marginBottom: '12px' }}
-          label='Total Fees Before Taxes:' /> 
+           sx={{ mb: '12px' }}
+          label='Total Fees Before Taxes' /> 
 
+            <InputField
+          id="total"
+          name="total"
+           sx={{ mb: '12px' }}
+          label='Total'/>
+
+          <InputField
+          id="taxOnExpenses"
+          name="taxOnExpenses"
+           sx={{ mb: '12px' }}
+          label='Tax on expenses'/>
+          </div>
+
+          <div>
           <InputField
            id="totalExpenses"
            name="totalExpenses"
-           sx={{ marginBottom: '12px' }}
+            sx={{ mb: '12px' }}
           label='Total expenses before taxes:' />
 
-          <InputField
-          id="total"
-          name="total"
-          sx={{ marginBottom: '12px' }}
-          label='Total'/>
-
+        
          <InputField
           id="taxOnFees"
           name="taxOnFees"
-          sx={{ marginBottom: '12px' }}
+           sx={{ mb: '12px' }}
           label='Tax on fees' />
 
-        <InputField
-          id="taxOnExpenses"
-          name="taxOnExpenses"
-          sx={{ marginBottom: '12px' }}
-          label='Tax on expenses:'/>
-            <br />
-            <EmptyTextarea />
+          <TextareaAutosize
+        placeholder='Comments'
+        className="w-full text-sm mb-3 font-normal leading-normal p-4 rounded-[5px]  focus:shadow-outline-purple  focus:shadow-lg  border border-gray-300 focus:border-blue-600 hover:border-purple-500 bg-white  box-border"
+        name="Comments" />
+          </div>
         </div>
          )
         }

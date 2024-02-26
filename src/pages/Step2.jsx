@@ -4,32 +4,32 @@ import InputField from '../InputField';
 import { DatePicker } from '@mui/x-date-pickers';
 import {  DemoItem } from '@mui/x-date-pickers/internals/demo';
 import { NumberInput } from '@mui/base/Unstable_NumberInput/NumberInput';
-import { FormControl, InputAdornment, InputLabel, MenuItem, OutlinedInput, TextField } from '@mui/material';
+import { FormControl, InputAdornment, InputLabel, MenuItem, OutlinedInput, Select, TextField } from '@mui/material';
 import { Label } from '@mui/icons-material';
+import { useFormikContext } from 'formik';
 
 const Step2 = ({validationSchema}) => {
-    const [value, setValue] = useState(null);
 
     const languages = [
         {
           code: 'en',
-          label: 'English',
+          value: 'English',
         },
         {
           code: 'es',
-          label: 'Español',
+          value: 'Español',
         },
         {
           code: 'fr',
-          label: 'Français',
+          value: 'Français',
         },
         {
           code: 'de',
-          label: 'Deutsch',
+          value: 'Deutsch',
         },
         {
           code: 'it',
-          label: 'Italiano',
+          value: 'Italiano',
         },
       ];
 
@@ -52,6 +52,7 @@ const Step2 = ({validationSchema}) => {
         },
       ];
       
+  const { errors, setFieldValue, touched, values } = useFormikContext(); // Access Formik context
 
   return (
         
@@ -63,7 +64,6 @@ const Step2 = ({validationSchema}) => {
           label="Invoice currency"
           defaultValue="EUR"
           required
-          helperText="Please select your currency"
         >
           {currencies.map((option) => (
             <MenuItem key={option.value} value={option.value}>
@@ -80,28 +80,40 @@ const Step2 = ({validationSchema}) => {
       />
 
         <DemoItem label="Invoice Date:" id='invoiceDate'>
-        <DatePicker  />
+        <DatePicker
+        id='invoiceDate'
+        value={values.invoiceDate}
+        onChange={(date) => setFieldValue('invoiceDate', date)} // Manually set the field value
+        error={touched.invoiceDate && Boolean(errors.invoiceDate)} // Use Formik's touched and errors properties
+        helperText={touched.invoiceDate && errors.invoiceDate}  />
         </DemoItem>
 
         <DemoItem label="Service Rendered Date:" id='renderedDate'>
-        <DatePicker  />
+        <DatePicker 
+        id='renderedDate'
+        value={values.renderedDate}
+        onChange={(date) => setFieldValue('renderedDate', date)} // Manually set the field value
+        error={touched.renderedDate && Boolean(errors.renderedDate)} // Use Formik's touched and errors properties
+        helperText={touched.renderedDate && errors.renderedDate} // Show error message if touched and error exists
+        />
         </DemoItem>
 
           <InputField
             id="amount"
             name="amount"
-            // startAdornment={<InputAdornment position="start">$</InputAdornment>}
             label="Amount"
           />        
+
         <TextField
           id="language"
           select
+          defaultValue="en"
           label="Language"
         //   helperText="Please select your currency"
         >
           {languages.map((option) => (
             <MenuItem key={option.code} value={option.code}>
-              {option.label}
+              {option.value}
             </MenuItem>
           ))}
         </TextField>

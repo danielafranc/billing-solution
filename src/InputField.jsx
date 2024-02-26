@@ -10,6 +10,7 @@ const InputField = ({label, ...props}) => {
     label={label}
     {...field}
     {...props}
+    controlled
     error={meta.touched.email && Boolean(meta.error)}
     helperText={meta.touched && meta.error}
     />

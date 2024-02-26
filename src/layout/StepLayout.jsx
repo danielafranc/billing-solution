@@ -1,8 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { Form, Formik } from 'formik';
 import FormNavigation from '../FormNavigation';
 import useStore from '../store/store';
 import { Step, StepLabel, Stepper } from '@mui/material';
+import Alert from '@mui/material/Alert';
+import CheckIcon from '@mui/icons-material/Check';
+import Slide from '@mui/material/Slide';
 
 // export const calculateSteps = (children) => {
 //   // Ensure children is iterable
@@ -17,10 +20,14 @@ const StepLayout = ({children, initialValues, onSubmit, validationSchema, ...pro
     const [stepNumber, setstepNumber] = useState(activeStep);
     const [snapshot, setSnapshot] = useState(initialValues);
     const steps = React.Children.toArray(children);
+    const [submitted, setSubmitted] = useState(false);
 
     const currentChild = steps[stepNumber];
     const totalSteps = steps.length;
     const isLastStep = stepNumber === totalSteps - 1;
+
+    const submissionDuration = 3000;
+    const transitionDuration = 1000;
 
     const nexStep = (values) => {
     setSnapshot(values);
@@ -32,25 +39,33 @@ const StepLayout = ({children, initialValues, onSubmit, validationSchema, ...pro
     const previousStep = (values) => {
         setSnapshot(values);
         setstepNumber(stepNumber - 1)
-        console.log(values)
 
     };
-    console.log(stepNumber)
-
 
     const handleSubmit = async (values, actions) => {
         if (currentChild.props.onSubmit){
-        // if (isLastcurrentChild()){
             await currentChild.props.onSubmit(values);
         };
         if(isLastStep){
-            return onSubmit(values, actions);
+            // onSubmit(values, actions);
+            setSubmitted(true);
+
         } else {
             actions.setTouched({});
             nexStep(values)
-            console.log(values)
-        }
+        };
+
     };
+
+    useEffect(() => {
+      let timer;
+      if (submitted) {
+        timer = setTimeout(() => {
+          setSubmitted(false); // Reset submitted state after 3 seconds
+        }, 3000);
+      }
+      return () => clearTimeout(timer);
+    }, [submitted, 3000]);
 
 
   return (
@@ -87,6 +102,17 @@ const StepLayout = ({children, initialValues, onSubmit, validationSchema, ...pro
             hasPrevious={stepNumber > 0}
             onBackClick={() => previousStep(formik.values)} 
              />
+
+            {
+              submitted && (
+          <Slide direction="up" in={submitted} mountOnEnter unmountOnExit timeout={transitionDuration}>
+            <Alert icon={<CheckIcon fontSize="inherit" />} severity="success" sx={{mt: 2}}>
+          The form was successfully submited. Thanks! 
+        </Alert>
+        </Slide>
+              )
+            }
+
         </Form>  )} 
         </Formik>
         </div>
@@ -95,6 +121,7 @@ const StepLayout = ({children, initialValues, onSubmit, validationSchema, ...pro
     
   )
 }
+
 
 export default StepLayout;
 export const FormStep = ({children}) => children;
